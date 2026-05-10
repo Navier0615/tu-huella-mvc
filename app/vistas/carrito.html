@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Carrito{% endblock %}
+{% block contenido %}
+  <h1>Tu Carrito</h1>
+  {% if items %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio unit.</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set total = 0 %}
+        {% for it in items %}
+          <tr>
+            <td>{{ it.producto.nombre }}</td>
+            <td>{{ it.cantidad }}</td>
+            <td>${{ "%.2f"|format(it.producto.precio) }}</td>
+            <td>${{ "%.2f"|format(it.producto.precio * it.cantidad) }}</td>
+            <td>
+              <form action="{{ url_for('carrito.quitar_del_carrito') }}" method="post" style="display:inline;">
+                <input type="hidden" name="id" value="{{ it.producto.id }}">
+                <input type="hidden" name="cantidad" value="1">
+                <button class="btn small">Quitar 1</button>
+              </form>
+            </td>
+          </tr>
+          {% set total = total + (it.producto.precio * it.cantidad) %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="text-align:right"><strong>Total:</strong></td>
+          <td colspan="2">${{ "%.2f"|format(total) }}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- 🔑 Botón corregido: ahora redirige al flujo de PayPal -->
+    <a class="btn btn-primary" href="{{ url_for('pago.crear_pago') }}">
+      Pagar con PayPal
+    </a>
+  {% else %}
+    <p>Tu carrito está vacío.</p>
+  {% endif %}
+{% endblock %}

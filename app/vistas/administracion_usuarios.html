@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h2>Gestión de Usuarios</h2>
+<ul>
+  {% for u in usuarios %}
+    <li>{{ u.username }} — Rol: {{ u.rol }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

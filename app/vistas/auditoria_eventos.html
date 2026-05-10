@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h2>Registro de Auditoría</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th><th>Usuario</th><th>Acción</th><th>Entidad</th><th>ID Entidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in eventos %}
+    <tr>
+      <td>{{ e.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+      <td>{{ e.usuario }}</td>
+      <td>{{ e.accion }}</td>
+      <td>{{ e.entidad }}</td>
+      <td>{{ e.entidad_id or '-' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Administración - Inventario{% endblock %}
+{% block contenido %}
+  <h1>Gestión de Inventario</h1>
+  <div class="panel-cards">
+    <a class="btn">Ingresar Producto</a>
+    <a class="btn">Dar Salida Producto</a>
+  </div>
+
+  <table class="table">
+    <thead><tr><th>ID</th><th>Nombre</th><th>Talla</th><th>Stock Actual</th><th>Acciones</th></tr></thead>
+    <tbody>
+      {% for p in productos %}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.talla }}</td>
+          <td>{{ p.stock }}</td>
+          <td><a class="btn small">Editar Stock</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

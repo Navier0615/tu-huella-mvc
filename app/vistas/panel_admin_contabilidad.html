@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Administración - Contabilidad{% endblock %}
+{% block contenido %}
+  <h1>Contabilidad</h1>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-title">Ingresos Totales</div>
+      <div class="stat-value verde">${{ "%.2f"|format(resumen.ingresos) }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Egresos Totales</div>
+      <div class="stat-value rojo">${{ "%.2f"|format(resumen.egresos) }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title">Balance Actual</div>
+      <div class="stat-value azul">${{ "%.2f"|format(resumen.balance) }}</div>
+    </div>
+  </div>
+
+  <h2>Registro de Transacciones</h2>
+  <table class="table">
+    <thead><tr><th>ID</th><th>Tipo</th><th>Fecha</th><th>Descripción</th><th>Monto</th></tr></thead>
+    <tbody>
+      {% for t in transacciones %}
+        <tr>
+          <td>{{ t.id }}</td>
+          <td>{{ t.tipo }}</td>
+          <td>{{ t.fecha }}</td>
+          <td>{{ t.descripcion }}</td>
+          <td class="{{ 'verde' if t.monto > 0 else 'rojo' }}"> ${{ "%.2f"|format(t.monto) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Tu Huella - Zapatillas{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="top-left">
+      <a class="brand" href="{{ url_for('producto.lista_productos') }}">TU HUELLA - ZAPATILLAS</a>
+    </div>
+
+    <div class="top-right">
+      <form class="search" action="#" method="get">
+        <input placeholder="Buscar zapatillas..." name="q">
+      </form>
+
+      {% if session.get('usuario') %}
+        <span class="usuario">👋 Hola, {{ session['usuario'] }}</span>
+        <a class="btn small" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+      {% else %}
+        <a class="btn small" href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <!-- Menú general -->
+          <li><a href="{{ url_for('producto.lista_productos') }}">🛍 Productos</a></li>
+          <li><a href="{{ url_for('carrito.ver_carrito') }}">🛒 Carrito</a></li>
+
+          <!-- Menú cliente -->
+          {% if session.get('rol') == 'cliente' %}
+            <li class="title">👤 Mi Cuenta</li>
+            <li><a href="{{ url_for('cliente.perfil_cliente') }}">📇 Mi Perfil</a></li>
+            <li><a href="{{ url_for('factura.historial_facturas') }}">🧾 Mis Compras</a></li>
+          {% endif %}
+
+          <!-- Menú administrador -->
+          {% if session.get('rol') == 'administrador' %}
+            <li class="title">⚙️ Panel de Administración</li>
+            <li><a href="{{ url_for('administracion.administrar_productos') }}">📦 Productos</a></li>
+            <li><a href="{{ url_for('administracion.administrar_inventario') }}">📊 Inventario</a></li>
+            <li><a href="{{ url_for('administracion.administrar_contabilidad') }}">💰 Contabilidad</a></li>
+            <li><a href="{{ url_for('administracion.administrar_usuarios') }}">👥 Usuarios</a></li>
+            <li><a href="{{ url_for('administracion.administrar_ventas') }}">🧾 Ventas</a></li>
+            <li><a href="{{ url_for('auditoria.ver_eventos') }}">📜 Auditoría</a></li>
+            <li><a href="{{ url_for('reportes.reporte_ventas') }}">📈 Reportes</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="container">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+          {% if mensajes %}
+            <div class="flash-list">
+              {% for categoria, msg in mensajes %}
+                <div class="flash {{ categoria }}">{{ msg }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- 👇 Nuevo bloque para acciones contextuales -->
+        {% block acciones %}{% endblock %}
+
+        {% block contenido %}{% endblock %}
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div>© 2025 Tu Huella — Todos los derechos reservados.</div>
+  </footer>
+</body>
+</html>
+

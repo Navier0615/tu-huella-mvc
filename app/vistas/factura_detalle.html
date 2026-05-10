@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de Factura{% endblock %}
+
+{% block acciones %}
+  {% if factura.capture_id %}
+    <form action="{{ url_for('pago.reembolso', capture_id=factura.capture_id) }}" method="post">
+      <button type="submit" class="btn btn-danger">💸 Solicitar Reembolso</button>
+    </form>
+  {% else %}
+    <p>⚠️ Esta factura no tiene transacción asociada.</p>
+  {% endif %}
+{% endblock %}
+
+{% block contenido %}
+  <h2>Factura #{{ factura.id }}</h2>
+  <p><strong>Fecha:</strong> {{ factura.fecha.strftime('%d/%m/%Y %H:%M') }}</p>
+  <p><strong>Total:</strong> ${{ factura.total }}</p>
+  <p><strong>Transacción PayPal:</strong> {{ factura.capture_id or "N/A" }}</p>
+
+  <h3>Detalles de la compra</h3>
+  <ul>
+    {% for detalle in factura.detalles %}
+      <li>{{ detalle.cantidad }} × {{ detalle.producto.nombre }} — ${{ detalle.subtotal }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

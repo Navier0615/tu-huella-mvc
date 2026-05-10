@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Confirmación{% endblock %}
+{% block contenido %}
+  <div class="card card-small">
+    <h2>Pedido confirmado</h2>
+    <p>ID: {{ orden_id }}</p>
+    <p>Total: ${{ "%.2f"|format(total) }}</p>
+    <a class="btn" href="{{ url_for('producto.lista_productos') }}">Volver al catálogo</a>
+  </div>
+{% endblock %}

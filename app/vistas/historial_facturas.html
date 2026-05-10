@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Historial de Facturas{% endblock %}
+
+{% block contenido %}
+  <h2>🧾 Mis Compras</h2>
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for factura in facturas %}
+        <tr>
+          <td>{{ factura.id }}</td>
+          <td>{{ factura.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td>${{ factura.total }}</td>
+          <td>
+            <a href="{{ url_for('factura.detalle_factura', factura_id=factura.id) }}" class="btn btn-info">
+              Ver detalle
+            </a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4">No tienes facturas registradas.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

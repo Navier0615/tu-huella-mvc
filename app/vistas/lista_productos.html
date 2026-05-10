@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Catálogo{% endblock %}
+{% block contenido %}
+  <h1>Catálogo de Zapatillas</h1>
+  <div class="cards">
+    {% for p in productos %}
+      <div class="card">
+        <img src="{{ p.imagen or url_for('static', filename='images/default.png') }}" alt="{{ p.nombre }}">
+        <div class="card-body">
+          <h3>{{ p.nombre }}</h3>
+          <p class="price">${{ "%.2f"|format(p.precio) }}</p>
+          <p>Talla: {{ p.talla }} • Stock: {{ p.stock }}</p>
+          <div class="card-actions">
+            <a class="btn small" href="{{ url_for('producto.detalle_producto', id=p.id) }}">Ver</a>
+            <form action="{{ url_for('carrito.agregar_al_carrito') }}" method="post" style="display:inline;">
+              <input type="hidden" name="id" value="{{ p.id }}">
+              <input type="hidden" name="cantidad" value="1">
+              <button class="btn small">Añadir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h2>Reporte de Ventas</h2>
+<table>
+  <thead>
+    <tr><th>ID Factura</th><th>Cliente</th><th>Total</th><th>Fecha</th></tr>
+  </thead>
+  <tbody>
+    {% for f in facturas %}
+    <tr>
+      <td>{{ f.id }}</td>
+      <td>{{ f.cliente_id }}</td>
+      <td>${{ f.total }}</td>
+      <td>{{ f.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

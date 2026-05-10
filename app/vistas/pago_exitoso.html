@@ -1,0 +1,12 @@
+<h2>Pago exitoso ✅</h2>
+<p>Factura N° {{ factura.id }}</p>
+<p>Total: ${{ factura.total }}</p>
+<p>ID de transacción PayPal: {{ captura.purchase_units[0].payments.captures[0].id }}</p>
+
+<h3>Detalles:</h3>
+<ul>
+  {% for detalle in factura.detalles %}
+    <li>{{ detalle.cantidad }} x {{ detalle.producto.nombre }} - ${{ detalle.subtotal }}</li>
+  {% endfor %}
+</ul>
+

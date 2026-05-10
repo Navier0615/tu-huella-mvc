@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h2>Mi Perfil</h2>
+
+<form method="post">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ cliente.nombre }}" required><br>
+
+    <label>Correo:</label>
+    <input type="email" name="correo" value="{{ cliente.correo }}" required><br>
+
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" value="{{ cliente.telefono }}"><br>
+
+    <label>Dirección:</label>
+    <input type="text" name="direccion" value="{{ cliente.direccion }}"><br>
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<a href="{{ url_for('carrito.ver_carrito') }}">Volver al carrito</a>
+{% endblock %}

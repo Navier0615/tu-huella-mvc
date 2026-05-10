@@ -1,0 +1,14 @@
+{% endblock %}
+
+<h2>Confirmar compra</h2>
+<ul>
+  {% for item in resumen %}
+    <li>{{ item.cantidad }} × {{ item.producto.nombre }} — ${{ item.subtotal }}</li>
+  {% endfor %}
+</ul>
+<p><strong>Total:</strong> ${{ total }}</p>
+
+<form action="{{ url_for('factura.confirmar_compra') }}" method="post">
+    <button type="submit" class="btn btn-success">Confirmar compra</button>
+</form>
+
