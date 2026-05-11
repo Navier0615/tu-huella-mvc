@@ -19,7 +19,7 @@ def create_app():  # 👈 renombrado para que Flask lo detecte
 
     # Configuración de conexión a PostgreSQL
     app.config['SQLALCHEMY_DATABASE_URI'] = (
-        "postgresql+psycopg2://postgres:miPassword123@localhost:5432/tu_huella_mvc"
+        "postgresql+psycopg2://postgres:admin123@localhost:5432/tu_huella_db"
     )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

@@ -109,3 +109,7 @@ class ServicioFactura:
     def obtener_factura(self, factura_id: int) -> Factura:
         """Devuelve una factura por ID"""
         return Factura.query.get_or_404(factura_id)
+    
+    def listar_facturas(self):
+        """Devuelve absolutamente todas las facturas de la tienda (para reportes)"""
+        return Factura.query.order_by(Factura.fecha.desc()).all()

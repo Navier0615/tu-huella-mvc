@@ -2,7 +2,7 @@ import os
 
 class Configuracion:
     SECRET_KEY = "clave_secreta"
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:miPassword123@localhost:5432/tu_huella_mvc"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin123@localhost:5432/tu_huella_db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Configuración de sesiones en BD
